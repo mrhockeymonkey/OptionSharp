@@ -38,7 +38,15 @@ public static class OptionExtensions
             _ => ThrowOption<TResult>(nameof(option))
         };
     
-    public static Option<TResult> AndThen<T, TResult>(this Option<T> option, Func<T, Option<TResult>> andThen) =>
+    /// <summary>
+    /// Allows you to chain multiple operations that return options together.
+    /// </summary>
+    /// <param name="option"></param>
+    /// <param name="andThen"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
+    /// <returns></returns>
+    public static Option<TResult> Bind<T, TResult>(this Option<T> option, Func<T, Option<TResult>> andThen) =>
         option switch
         {
             Some<T> some => andThen(some.Value),

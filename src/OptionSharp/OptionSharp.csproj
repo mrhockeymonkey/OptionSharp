@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <PackageId>OptionSharp</PackageId>
+        <Version>0.1.0</Version>
+    </PropertyGroup>
+
 </Project>
