@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
     defaults:
       run:
         working-directory: ./src
@@ -36,7 +36,8 @@ jobs:
       run: dotnet test -c Release --no-build --verbosity normal
 
   pack:
-    if: needs.build.result == 'success'
+    if: github.ref == 'refs/heads/master'
+    needs: test
     defaults:
       run:
         working-directory: ./src
