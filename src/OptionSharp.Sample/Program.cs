@@ -1,4 +1,5 @@
 ﻿using OptionSharp;
+using OptionSharp.Sample;
 using static OptionSharp.Constructors;
 
 // using c# pattern matching
@@ -28,3 +29,20 @@ var final = something
     .Reduce(() => "zzz");
 Console.WriteLine(final);
 
+// results
+
+DummyApi api = new();
+
+await Ok("my string")
+    .Map(str => $"{str} mapped")
+    .Bind(str => api.EchoStringResult(str))
+    .Inspect(Console.WriteLine)
+    .BindAsync(str => api.GetNewStringAsync())
+    .MapAsync(s => $"{s} + some mapping")
+    .InspectAsync(Console.WriteLine); // once in the async world you will use the async extension methods
+
+// conversion between results and options
+Result<string, ErrMessage> r = Ok("a")
+    .ToOption()
+    .Map(s => $"{s}b")
+    .ToResult(() => new ErrMessage("Option was none"));

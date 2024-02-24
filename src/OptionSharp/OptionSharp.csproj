@@ -8,7 +8,14 @@
 
     <PropertyGroup>
         <PackageId>OptionSharp</PackageId>
-        <Version>0.1.0</Version>
+        <PackageVersion>0.1.0-alpha</PackageVersion>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/mrhockeymonkey/OptionSharp</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
 </Project>
