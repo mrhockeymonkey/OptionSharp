@@ -34,3 +34,20 @@ jobs:
       run: dotnet build -c Release --no-restore
     - name: Test
       run: dotnet test -c Release --no-build --verbosity normal
+
+  pack:
+    if: needs.build.result == 'success'
+    defaults:
+      run:
+        working-directory: ./src
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pack
+        run: dotnet test -c Release --no-build --verbosity normal
+      - name: Upload nuget package
+        uses: actions/upload-artifact@v3
+        with:
+          name: nupkg
+          path: |
+            src/OptionSharp/bin/Release/*.nupkg
+    

@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{904E71E8-B02F-4E6D-8F04-155D051C2183}"
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
+		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionSharp.Benchmarks", "OptionSharp.Benchmarks\OptionSharp.Benchmarks.csproj", "{E282F223-764B-4413-894A-1C9C11EA482A}"
