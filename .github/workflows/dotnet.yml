@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
     defaults:
       run:
         working-directory: ./src
@@ -29,7 +29,7 @@ jobs:
       run: dotnet build -c Release --no-restore
     - name: Test
       run: dotnet test -c Release --no-build --verbosity normal
-      
+
     - name: Pack
       if: github.ref == 'refs/heads/main'
       run: dotnet pack -c Release --no-build --verbosity normal
@@ -40,4 +40,4 @@ jobs:
         name: nupkg
         path: |
           OptionSharp/bin/Release/*.nupkg
-    
+
