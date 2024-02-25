@@ -40,5 +40,5 @@ jobs:
       with:
         name: nupkg
         path: |
-          ./OptionSharp/bin/Release/*.nupkg
+          ./src/OptionSharp/bin/Release/*.nupkg
 
