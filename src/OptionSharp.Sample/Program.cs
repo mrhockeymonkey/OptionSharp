@@ -1,6 +1,11 @@
-﻿using OptionSharp;
+﻿global using static OptionSharp.Constructors;
+
+using OptionSharp;
 using OptionSharp.Sample;
-using static OptionSharp.Constructors;
+
+//await EnumerableExamples.AllExamples();
+
+await MatchExamples.AllExamples();
 
 // using c# pattern matching
 

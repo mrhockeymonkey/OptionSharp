@@ -29,6 +29,14 @@ public static class ResultExtensions
             _ => Throw(nameof(result))
         };
     
+    public static bool IsErrAnd<T, TErr>(this Result<T, TErr> result, Func<TErr, bool> predicate) =>
+        result switch
+        {
+            Ok<T, TErr> => false,
+            Err<T, TErr> err => predicate(err.Error),
+            _ => Throw(nameof(result))
+        };
+    
     public static Result<TResult, TErr> Map<T, TErr, TResult>(this Result<T, TErr> result, Func<T, TResult> map) =>
         result switch
         {
