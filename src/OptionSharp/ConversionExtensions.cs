@@ -20,7 +20,7 @@ public static class ConversionExtensions
         result switch
         {
             Ok<T, TErr> ok => Some(ok.Value),
-            Err<T, TErr> _ => None<T>(),
+            Err<T, TErr> => None<T>(),
             _ => ThrowOption<T>(nameof(result))
         };
 
