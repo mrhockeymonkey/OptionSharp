@@ -2,10 +2,12 @@
 
 using OptionSharp;
 using OptionSharp.Sample;
+// ReSharper disable UnusedVariable
+// ReSharper disable UnusedParameter.Local
 
-//await EnumerableExamples.AllExamples();
+await EnumerableExamples.AllExamples();
 
-await MatchExamples.AllExamples();
+MatchExamples.AllExamples();
 
 // using c# pattern matching
 
@@ -20,7 +22,8 @@ Option<int> maybeValue = None<int>();
 var valueResult = maybeValue switch
 {
     Some<int> someValue => someValue.Value,
-    None<int> => 0
+    None<int> => 0,
+    _ => throw new InvalidOperationException()
 };
 
 // using optional methods

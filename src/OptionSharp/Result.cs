@@ -1,15 +1,17 @@
 ﻿namespace OptionSharp;
 
-public abstract record Result<T, TErr>();
+// ReSharper disable UnusedTypeParameter
+public abstract record Result<T, TErr>;
+// ReSharper restore UnusedTypeParameter
 
-public sealed record Ok<T, TErr>(T Value) : Result<T, TErr>()
+public sealed record Ok<T, TErr>(T Value) : Result<T, TErr>
 {
     public T Value { get; } = Value is null
         ? throw new ArgumentNullException(nameof(Value))
         : Value;
 }
 
-public sealed record Err<T, TErr>(TErr Error) : Result<T, TErr>()
+public sealed record Err<T, TErr>(TErr Error) : Result<T, TErr>
 {
     public TErr Error { get; } = Error is null
         ? throw new ArgumentNullException(nameof(Error))

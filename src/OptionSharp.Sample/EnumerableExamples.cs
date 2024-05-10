@@ -1,3 +1,4 @@
+// ReSharper disable UnusedVariable
 namespace OptionSharp.Sample;
 
 using IntResult = Result<int, ErrMessage>;

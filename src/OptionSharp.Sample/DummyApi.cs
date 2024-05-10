@@ -1,6 +1,4 @@
-﻿using static OptionSharp.Constructors;
-
-namespace OptionSharp.Sample;
+﻿namespace OptionSharp.Sample;
 
 
 public class DummyApi

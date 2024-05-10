@@ -57,7 +57,7 @@ public class OptionsExtensionsTests
     public void Given_None_When_CallingBind_Then_ReturnSome()
     {
         None<int> option = new();
-        Option<int> result = option.Bind(i => new None<int>());
+        Option<int> result = option.Bind(_ => new None<int>());
 
         Assert.IsType<None<int>>(result);
     }
