@@ -37,7 +37,9 @@ public static class ResultExtensions
             _ => Throw(nameof(result))
         };
     
-    public static Result<TResult, TErr> Map<T, TErr, TResult>(this Result<T, TErr> result, Func<T, TResult> map) =>
+    public static Result<TResult, TErr> Map<T, TErr, TResult>(this Result<T, TErr> result, Func<T, TResult> map) 
+        where TResult : notnull 
+        where TErr : notnull =>
         result switch
         {
             Ok<T, TErr> ok => Ok<TResult, TErr>(map(ok.Value)),
@@ -45,7 +47,9 @@ public static class ResultExtensions
             _ => ThrowResult<TResult, TErr>(nameof(result))
         };
     
-    public static async Task<Result<TResult, TErr>> MapAsync<T, TErr, TResult>(this Task<Result<T, TErr>> result, Func<T, TResult> map)
+    public static async Task<Result<TResult, TErr>> MapAsync<T, TErr, TResult>(this Task<Result<T, TErr>> result, Func<T, TResult> map) 
+        where TResult : notnull 
+        where TErr : notnull
     {
         var awaitedResult = await result;
         return awaitedResult switch
@@ -57,7 +61,8 @@ public static class ResultExtensions
     }
 
     
-    public static Result<TResult, TErr> Bind<T, TErr, TResult>(this Result<T, TErr> result, Func<T, Result<TResult, TErr>> andThen) =>
+    public static Result<TResult, TErr> Bind<T, TErr, TResult>(this Result<T, TErr> result, Func<T, Result<TResult, TErr>> andThen) 
+        where TErr : notnull =>
         result switch
         {
             Ok<T, TErr> ok => andThen(ok.Value),
@@ -65,7 +70,8 @@ public static class ResultExtensions
             _ => ThrowResult<TResult, TErr>(nameof(result))
         };
     
-    public static Task<Result<TResult, TErr>> BindAsync<T, TErr, TResult>(this Result<T, TErr> result, Func<T, Task<Result<TResult, TErr>>> andThen) =>
+    public static Task<Result<TResult, TErr>> BindAsync<T, TErr, TResult>(this Result<T, TErr> result, Func<T, Task<Result<TResult, TErr>>> andThen) 
+        where TErr : notnull =>
         result switch
         {
             Ok<T, TErr> ok => andThen(ok.Value),
@@ -108,7 +114,7 @@ public static class ResultExtensions
         result switch
         {
             Ok<T, TErr> ok => ok.Value,
-            Err<T, TErr> err => @else(),
+            Err<T, TErr> => @else(),
             _ => Throw<T>(nameof(result))
         };
 

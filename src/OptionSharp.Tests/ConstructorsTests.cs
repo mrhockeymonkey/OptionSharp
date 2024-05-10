@@ -110,7 +110,7 @@ public class ConstructorsTests
     [Fact]
     public void Given_ValueType_When_ConstructingOkWithErrMessage_Then_ReturnResult()
     {
-        Result<int, ErrMessage> result = Ok<int>(7);
+        Result<int, ErrMessage> result = Ok(7);
         Assert.IsType<Ok<int, ErrMessage>>(result);
         var ok = result as Ok<int, ErrMessage>;
         Assert.NotNull(ok);
@@ -130,7 +130,7 @@ public class ConstructorsTests
     [Fact]
     public void Given_NullRefType_When_ConstructingOkWithErrMessage_Then_Throw()
     {
-        Assert.Throws<ArgumentNullException>(() => Ok<string>(default(string)!));
+        Assert.Throws<ArgumentNullException>(() => Ok(default(string)!));
     }
     
     [Fact]

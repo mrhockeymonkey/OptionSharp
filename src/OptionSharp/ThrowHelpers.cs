@@ -5,7 +5,8 @@ namespace OptionSharp;
 public static class ThrowHelpers
 {
     [DoesNotReturn]
-    internal static Option<T> ThrowOption<T>(string? paramName) => 
+    internal static Option<T> ThrowOption<T>(string? paramName) 
+        where T : notnull => 
         throw new ArgumentOutOfRangeException(paramName);
     
     [DoesNotReturn]

@@ -2,7 +2,7 @@ namespace OptionSharp.Sample;
 
 public static class MatchExamples
 {
-    public static async Task AllExamples()
+    public static void AllExamples()
     {
         MatchActions();
         MatchFunc();
