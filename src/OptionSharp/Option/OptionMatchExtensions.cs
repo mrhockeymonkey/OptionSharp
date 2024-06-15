@@ -1,8 +1,8 @@
 using static OptionSharp.ThrowHelpers;
 
-namespace OptionSharp;
+namespace OptionSharp.Option;
 
-public static class MatchExtensions
+public static class OptionMatchExtensions
 {
     public static Unit Match<T>(this Option<T> option, Action<T> some, Action none) 
         where T : notnull
@@ -15,6 +15,11 @@ public static class MatchExtensions
         return Unit.Value;
     }
     
+    public static async Task<Unit> MatchAsync<T>(this Task<Option<T>> option, Action<T> some, Action none) 
+        where T : notnull =>
+        (await option).Match(some, none);
+    
+
     public static TResult Match<T, TResult>(this Option<T> option, Func<T, TResult> some, Func<TResult> none) 
         where T : notnull =>
         option switch
@@ -23,4 +28,9 @@ public static class MatchExtensions
             None<T> => none(),
             _ => Throw<TResult>(nameof(option))
         };
+
+    
+    public static async Task<TResult> MatchAsync<T, TResult>(this Task<Option<T>> option, Func<T, TResult> some, Func<TResult> none)
+        where T : notnull =>
+        (await option).Match(some, none);
 }

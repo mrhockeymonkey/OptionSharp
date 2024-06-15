@@ -1,6 +1,8 @@
 ﻿global using static OptionSharp.Constructors;
 
 using OptionSharp;
+using OptionSharp.Option;
+using OptionSharp.Result;
 using OptionSharp.Sample;
 // ReSharper disable UnusedVariable
 // ReSharper disable UnusedParameter.Local
@@ -34,7 +36,7 @@ var final = something
     .Map(value => $"{value}b")
     .Inspect(Console.WriteLine)
     .Bind(value => Some($"{value}c"))
-    .Reduce(() => "zzz");
+    .UnwrapOrDefault(() => "zzz");
 Console.WriteLine(final);
 
 // results

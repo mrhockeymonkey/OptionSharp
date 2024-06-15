@@ -1,3 +1,5 @@
+using OptionSharp.Option;
+
 namespace OptionSharp.Sample;
 
 public static class MatchExamples
