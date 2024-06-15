@@ -2,7 +2,7 @@
 
 namespace OptionSharp;
 
-public static class ThrowHelpers
+internal static class ThrowHelpers
 {
     [DoesNotReturn]
     internal static Option<T> ThrowOption<T>(string? paramName) 

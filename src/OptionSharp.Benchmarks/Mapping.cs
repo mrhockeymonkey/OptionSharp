@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using OptionSharp.Option;
 
 namespace OptionSharp.Benchmarks;
 
@@ -26,7 +27,7 @@ public class Mapping
             .Map(i => i + 1)
             .Map(i => i + 1)
             .Map(i => i + 1)
-            .Reduce(() => 0);
+            .UnwrapOrDefault(() => 0);
     }
     
     public record Foo(double Value);
@@ -52,7 +53,7 @@ public class Mapping
             .Map(s => int.Parse(s))
             .Map(i => (double)i)
             .Map(d => new Foo(d))
-            .Reduce(() => new Foo(0));
+            .UnwrapOrDefault(() => new Foo(0));
     }
 }
 
