@@ -7,6 +7,9 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+permissions:
+  pull-requests: write
 
 jobs:
   test:
@@ -36,8 +39,6 @@ jobs:
       run: dotnet tool install -g dotnet-reportgenerator-globaltool
     - name: Generate Code Coverage Summary
       run: reportgenerator -reports:"./coverage/**/coverage.cobertura.xml" -targetdir:"coverage" -reporttypes:"MarkdownSummaryGithub;Badges"
-    - name: foo
-      run: ls -la coverage
 
 #    - name: Code Coverage Report
 #      uses: irongut/CodeCoverageSummary@v1.3.0
