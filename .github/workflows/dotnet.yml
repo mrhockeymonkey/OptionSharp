@@ -30,7 +30,11 @@ jobs:
     - name: Build
       run: dotnet build -c Release --no-restore
     - name: Test
-      run: dotnet test -c Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory /tmp/coverage
+      run: dotnet test -c Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+    - name: Install tool
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
+    - name: Code Coverage Summary
+      run: reportgenerator -reports:"./coverage/**/coverage.cobertura.xml" -targetdir:"coverage" -reporttypes:MarkdownSummaryGithub;Badges
     - name: inspect
       run:  ls -la /tmp/coverage/**/coverage.cobertura.xml && cat /tmp/coverage/**/coverage.cobertura.xml
     - name: Code Coverage Report
@@ -63,4 +67,3 @@ jobs:
         name: nupkg
         path: |
           ./src/OptionSharp/bin/Release/*.nupkg
-
