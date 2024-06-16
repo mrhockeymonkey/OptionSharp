@@ -40,25 +40,20 @@ jobs:
     - name: Generate Code Coverage Summary
       run: reportgenerator -reports:"./coverage/**/coverage.cobertura.xml" -targetdir:"coverage" -reporttypes:"MarkdownSummaryGithub;Badges"
 
-#    - name: Code Coverage Report
-#      uses: irongut/CodeCoverageSummary@v1.3.0
-#      with:
-#        filename: /tmp/coverage/*/coverage.cobertura.xml
-#        badge: true
-#        fail_below_min: false
-#        format: markdown
-#        hide_branch_rate: false
-#        hide_complexity: true
-#        indicators: true
-#        output: both
-#        thresholds: '60 80'
-
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
       if: github.event_name == 'pull_request'
       with:
         recreate: true
         path: ./src/coverage/SummaryGithub.md
+        
+    - name: Upload badge
+      #if: github.ref == 'refs/heads/main'
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage=badge
+        path: |
+          ./src/coverage/badge_shieldsio_linecoverage_blue.svg
 
     - name: Pack
       run: dotnet pack -c Release --no-build --verbosity normal
