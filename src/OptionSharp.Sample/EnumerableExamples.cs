@@ -1,4 +1,7 @@
 // ReSharper disable UnusedVariable
+
+using OptionSharp.Option;
+
 namespace OptionSharp.Sample;
 
 using IntResult = Result<int, ErrMessage>;
@@ -29,7 +32,7 @@ public static class EnumerableExamples
         // uses System.Linq.Async
         List<int> numbers = await GetNumbersAsyncEnumerable()
             .Select(r => r.ToOption())
-            .FilterMap(x => x)
+            .FilterMapAsyncEnumerable(x => x)
             .ToListAsync();
     }
 
