@@ -16,12 +16,10 @@ public static class Constructors
         where TErr : notnull
         => new Err<T, TErr>(error);
     
-    public static Result<T, Error> Ok<T>(T value) 
+    public static Result<T, ErrMessage> Ok<T>(T value) 
         where T : notnull
-        => new Ok<T, Error>(value);
-    public static Result<T, Error> Err<T>(Error error) 
-        => new Err<T, Error>(error);    
+        => new Ok<T, ErrMessage>(value);
     
-    public static Result<T, Error> Err<T>(string message) 
-        => new Err<T, Error>(new ErrMessage(message));
+    public static Result<T, ErrMessage> Err<T>(string message) 
+        => new Err<T, ErrMessage>(new ErrMessage(message));
 }

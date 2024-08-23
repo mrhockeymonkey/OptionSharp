@@ -1,32 +1,75 @@
+using OptionSharp.Result;
+using static OptionSharp.Sample.MyConstructors;
+
 namespace OptionSharp.Sample;
 
 public class Errors
 {
     public void CreatingErrors()
     {
-        // Error is the base class for all error types
-        var defaultErr = Err<int>(new Error());
-        var explicitErr = Err<int, Error>(new Error());
-        
         // ErrMessage is provided for convenience...
-        var messageErr = Err<int>(new ErrMessage("something went wrong"));
+        var messageErr = Err<int, ErrMessage>(new ErrMessage("something went wrong"));
         var legacyMessageErr = Err<int>("something went awry");
 
         // ... but it's better to define your own custom error types
-        var notFoundErr = Err<int>(new NotFoundError());
-        var badInputErr = Err<int>(new BadInputError(0));
+        var notFoundErr = Err<int, MyCustomError>(new NotFoundError());
+        var badInputErr = Err<int, MyCustomError>(new BadInputError(0));
+        
+        // you can also build your own typed constructors for a cleaner syntax
+        Result<int, MyCustomError> ok7 = OkNumber(7);
+        Result<int, MyCustomError> err7 = ErrNumber(new BadInputError(7));
     }
 
-    public void MappingAndLoggingErrors()
+    public Result<int, MyCustomError> MappingErrors()
     {
-        var someResult = Err<int>("something threw an exception");
+        Result<int, ErrMessage> someResult = Err<int>("something threw an exception");
         
-        // you can map received errors into your own 
+        // you can map received errors into your own however...
+        // because covariance is only supported in interface and delegate types you may need to cast your error
+        // to its base type occasionally to match a method signature
+        return someResult
+            .MapErr(errMessage => new NotFoundError().AsMyCustomError());
+    }
+
+    public void LoggingErrors()
+    {
+        MappingErrors()
+            .Match(
+                ok => Console.WriteLine($"We got an int: {ok}"),
+                err =>
+                {
+                    switch (err)
+                    {
+                        case NotFoundError nf:
+                            Console.WriteLine("Not found!");
+                            break;
+                        case BadInputError bi:
+                            Console.WriteLine($"Bad input: {bi.Input}");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                });
     }
 }
 
-public abstract record MyCustomError : Error;
+// custom error types
+public abstract record MyCustomError;
 public record NotFoundError : MyCustomError;
 public record BadInputError(int Input) : MyCustomError;
 
-//public static 
+
+// custom ctors
+public static class MyConstructors
+{
+    public static Result<int, MyCustomError> OkNumber(int value) 
+        => new Ok<int, MyCustomError>(value);
+    
+    public static Result<int, MyCustomError> ErrNumber(MyCustomError error) 
+        => new Err<int, MyCustomError>(error);
+}
+
+public static class MyHelpers
+{
+    public static MyCustomError AsMyCustomError(this MyCustomError error) => error;
+}
