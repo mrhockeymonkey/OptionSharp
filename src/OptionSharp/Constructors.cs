@@ -19,6 +19,7 @@ public static class Constructors
     public static Result<T, ErrMessage> Ok<T>(T value) 
         where T : notnull
         => new Ok<T, ErrMessage>(value);
-    public static Result<T, ErrMessage> Err<T>(string error) 
-        => new Err<T, ErrMessage>(new ErrMessage(error));
+    
+    public static Result<T, ErrMessage> Err<T>(string message) 
+        => new Err<T, ErrMessage>(new ErrMessage(message));
 }
