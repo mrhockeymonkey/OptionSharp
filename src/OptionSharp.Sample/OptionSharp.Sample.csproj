@@ -9,11 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OptionSharp\OptionSharp.csproj" />
+        <ProjectReference Include="..\OptionSharp\OptionSharp.csproj"/>
+        <ProjectReference Include="..\OptionSharp.SourceGen\OptionSharp.SourceGen.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+        <PackageReference Include="System.Linq.Async" Version="6.0.1"/>
     </ItemGroup>
 
 </Project>

@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionSharp.Benchmarks", "O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionSharp.Tests", "OptionSharp.Tests\OptionSharp.Tests.csproj", "{23161F55-23D6-4542-B2A6-6C5B9C0FC057}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionSharp.SourceGen", "OptionSharp.SourceGen\OptionSharp.SourceGen.csproj", "{84D85FE9-88C1-4C29-93F5-A49ADCD599DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionSharp.SourceGen.Tests", "OptionSharp.SourceGen.Tests\OptionSharp.SourceGen.Tests.csproj", "{BA516FCA-1177-4307-8305-5F53374F330A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +47,13 @@ Global
 		{23161F55-23D6-4542-B2A6-6C5B9C0FC057}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23161F55-23D6-4542-B2A6-6C5B9C0FC057}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23161F55-23D6-4542-B2A6-6C5B9C0FC057}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D85FE9-88C1-4C29-93F5-A49ADCD599DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D85FE9-88C1-4C29-93F5-A49ADCD599DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D85FE9-88C1-4C29-93F5-A49ADCD599DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D85FE9-88C1-4C29-93F5-A49ADCD599DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA516FCA-1177-4307-8305-5F53374F330A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA516FCA-1177-4307-8305-5F53374F330A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA516FCA-1177-4307-8305-5F53374F330A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA516FCA-1177-4307-8305-5F53374F330A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
