@@ -1,5 +1,4 @@
 using OptionSharp.Result;
-using static OptionSharp.Sample.MyConstructors;
 
 namespace OptionSharp.Sample;
 
@@ -7,18 +6,29 @@ public class Errors
 {
     public void CreatingErrors()
     {
-        // ErrMessage is provided for convenience...
-        var messageErr = Err<int, ErrMessage>(new ErrMessage("something went wrong"));
-        var legacyMessageErr = Err<int>("something went awry");
-
-        // ... but it's better to define your own custom error types
-        var notFoundErr = Err<int, MyCustomError>(new NotFoundError());
-        var badInputErr = Err<int, MyCustomError>(new BadInputError(0));
+        // ErrMessage is a simple result type provided for convenience...
+        Result<int, ErrMessage> basicOk = Ok(7);
+        Result<int, ErrMessage> basicErr = Err<int, ErrMessage>(new ErrMessage("something went wrong"));
+        Result<int, ErrMessage> basicErrShortcut = Err<int>("something went awry");
         
-        // you can also build your own typed constructors for a cleaner syntax
-        Result<int, MyCustomError> ok7 = OkNumber(7);
-        Result<int, MyCustomError> err7 = ErrNumber(new BadInputError(7));
+        // ... however a better approach is to define your own error types and use the
+        // source generated constructors (See HandleError and PublishError examples below)
+        Result<int, HandleError> handleOk = Handle.Ok(7);
+        Result<int, HandleError> handleErr = Handle.Err<int>(new FailedToDeserialize(""));
+
+        Result<int, PublishError> publishOk = Publish.Ok(7);
+        Result<int, PublishError> publishErr = Publish.Err<int>(new BrokerUnavailable());
+
+        var eight = TryGetIdOnlyIfSeven(7)
+            .Inspect(seven => Console.WriteLine($"seven is {seven}"))
+            .Map(seven => seven + 1)
+            .UnwrapOrDefault(0);
     }
+    
+    public Result<int, HandleError> TryGetIdOnlyIfSeven(int id) => 
+        id == 7 
+            ? Handle.Ok(id) 
+            : Handle.Err<int>(new InvalidId(id));
 
     public Result<int, MyCustomError> MappingErrors()
     {
@@ -53,21 +63,28 @@ public class Errors
     }
 }
 
+
+[GenerateResult("Handle")]
+public abstract record HandleError;
+
+public sealed record FailedToDeserialize(string Message) : HandleError;
+public sealed record InvalidId(int Id) : HandleError;
+
+
+[GenerateResult("Publish")]
+public abstract record PublishError;
+public sealed record BrokerUnavailable : PublishError;
+public sealed record AuthenticationFailed : PublishError;
+
 // custom error types
 public abstract record MyCustomError;
 public record NotFoundError : MyCustomError;
 public record BadInputError(int Input) : MyCustomError;
 
 
-// custom ctors
-public static class MyConstructors
-{
-    public static Result<int, MyCustomError> OkNumber(int value) 
-        => new Ok<int, MyCustomError>(value);
-    
-    public static Result<int, MyCustomError> ErrNumber(MyCustomError error) 
-        => new Err<int, MyCustomError>(error);
-}
+
+
+
 
 public static class MyHelpers
 {

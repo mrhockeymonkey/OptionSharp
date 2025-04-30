@@ -1,0 +1,6 @@
+<Project>
+    <PropertyGroup>
+        <PackageOutputPath>$(MSBuildThisFileDirectory)\dist</PackageOutputPath>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+</Project>

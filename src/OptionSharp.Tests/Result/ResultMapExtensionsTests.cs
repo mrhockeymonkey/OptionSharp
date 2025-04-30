@@ -1,4 +1,3 @@
-using OptionSharp.Option;
 using OptionSharp.Result;
 
 namespace OptionSharp.Tests.Result;
