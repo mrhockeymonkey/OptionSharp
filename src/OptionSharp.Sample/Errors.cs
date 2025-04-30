@@ -18,7 +18,17 @@ public class Errors
 
         Result<int, PublishError> publishOk = Publish.Ok(7);
         Result<int, PublishError> publishErr = Publish.Err<int>(new BrokerUnavailable());
+
+        var eight = TryGetIdOnlyIfSeven(7)
+            .Inspect(seven => Console.WriteLine($"seven is {seven}"))
+            .Map(seven => seven + 1)
+            .UnwrapOrDefault(0);
     }
+    
+    public Result<int, HandleError> TryGetIdOnlyIfSeven(int id) => 
+        id == 7 
+            ? Handle.Ok(id) 
+            : Handle.Err<int>(new InvalidId(id));
 
     public Result<int, MyCustomError> MappingErrors()
     {
